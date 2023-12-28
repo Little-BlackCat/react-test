@@ -1,8 +1,30 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.languages {
+  text-align: right;
+  margin-top: 1rem;
+  /* margin-right: 1rem; */
+}
+
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  gap: 1rem;
+  padding: 0 15%;
+}
+
+.container {
+  background: white;
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 .logo {
