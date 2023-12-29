@@ -29,8 +29,8 @@ const Languages = () => {
         className='dropdown' 
         onChange={(e) => onClickLanguagesChange(e.target.value)}
       >
-        {languagesOption.map((lang) => (
-          <option value={lang.value}>{t(lang.label)}</option>
+        {languagesOption.map((lang, index) => (
+          <option key={index} value={lang.value}>{t(lang.label)}</option>
         ))}
       </select>
     </div>

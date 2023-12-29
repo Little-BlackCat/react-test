@@ -6,5 +6,7 @@
   "test3": "Test 3",
   "desc1": "Layout & Style",
   "desc2": "Connect API",
-  "desc3": "Form and Table"
+  "desc3": "Form and Table",
+  "shape": "Move shape",
+  "position": "Move position"
 }

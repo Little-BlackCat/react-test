@@ -69,6 +69,136 @@
   color: black;
 }
 
+.test {
+  margin-top: 8rem;
+}
+
+.command {
+  display: flex;
+  gap: 2rem;
+}
+
+.result-default {
+  display: flex;
+  flex-direction: column;
+}
+.result-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.background {
+  position: relative;
+  background: white;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 4rem;
+  padding: 2rem 0;
+}
+
+.background:hover {
+  background: #ffa200;
+  cursor: pointer;
+}
+
+.middle {
+  flex: 2;
+  gap: 8rem;
+}
+
+.triangle {
+  /* position: relative; */
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid gray;
+  opacity: 0.8;
+}
+
+.left {
+  transform: rotate(-90deg);
+}
+.right {
+  transform: rotate(90deg);
+}
+.down {
+  transform: rotate(180deg);
+}
+
+.move {
+  position: absolute;
+  background: green;
+  opacity: 0.8;
+  color: white;
+  padding: 0.125rem 1rem;
+  border-radius: 18px;
+  bottom: -20%;
+}
+
+.line {
+  margin: 2.5rem 0;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+.oval {
+  width: 250px;
+  height: 100px;
+  background-color: gray;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+.rectangle {
+  width: 250px; 
+  height: 100px; 
+  background-color: gray;
+  opacity: 0.8;
+}
+.square {
+  width: 100px; 
+  height: 100px; 
+  background-color: gray;
+  opacity: 0.8;
+}
+.parallelogram {
+  width: 250px; 
+  height: 100px;
+  transform: skew(30deg); 
+  background-color: gray;
+  opacity: 0.8;
+}
+.trapeziod {
+  width: 250px;
+  height: 100px; 
+  clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+  background-color: gray;
+  opacity: 0.8;
+}
+
+.background:hover .pic-cursor {
+  background: white;
+}
+
+.top-result {
+  margin-left: 18rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.bottom-result {
+  margin-right: 18rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

@@ -4,7 +4,11 @@ const Test3 = () => {
   const { t } = useTranslation()
 
   return (
-    <div>{t("desc3")}</div>
+    <div className="test">
+      <h1>
+        {t("desc3")}
+      </h1>
+    </div>
   )
 }
 
