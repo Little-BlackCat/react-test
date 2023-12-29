@@ -5,10 +5,21 @@
   box-sizing: border-box;
 }
 
-.languages {
-  text-align: right;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 1rem;
-  /* margin-right: 1rem; */
+}
+
+.home-icon {
+  transition: transform .2s;
+  width: 40px;
+}
+
+.home-icon:hover {
+  cursor: pointer;
+  transform: scale(1.5);
 }
 
 .home {
@@ -21,9 +32,26 @@
 
 .container {
   background: white;
+  color: black;
   width: 100%;
   padding: 1rem 3rem;
   cursor: pointer;
+  transition: transform .2s;
+}
+
+.container:hover {
+  color: green;
+  transform: scale(1.1);
+}
+
+.disable {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.disable:hover {
+  transform: none;
+  color: black;
 }
 
 .dropdown {

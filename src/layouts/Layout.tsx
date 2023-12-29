@@ -1,4 +1,4 @@
-import Languages from "../components/Languages"
+import Navbar from "../components/Navbar"
 
 interface Props {
   children: React.ReactNode
@@ -7,9 +7,8 @@ interface Props {
 const Layout = ({ children }: Props) => {
   return (
     <div>
-      <Languages />
+      <Navbar />
       {children}
-
     </div>
   )
 }
