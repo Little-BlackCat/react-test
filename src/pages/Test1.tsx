@@ -23,7 +23,7 @@ const Test1 = () => {
         </div>
         <div className="background middle"
           onClick={() =>
-            dispatch(movePosition(moveReducer.shapeList))
+            dispatch(movePosition())
           }
         >
           <div className="triangle"></div>
@@ -41,7 +41,7 @@ const Test1 = () => {
       </div>
 
       <hr className="line" />
-      
+
       <div className={moveReducer.position}>
         <div className="command top-result">
           {moveReducer.shapeList.map((shape, index) => 
