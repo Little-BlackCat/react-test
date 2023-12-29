@@ -4,10 +4,12 @@ import Languages from "./Languages"
 const Navbar = () => {
   return (
     <div className="nav">
-      <Link to="/">
-        <img className="home-icon" src="/public/home.png" alt="home" />
-      </Link>
-      <Languages />
+      <div className="menu">
+        <Languages />
+        <Link to="/">
+          <img className="home-icon" src="/public/home.png" alt="home" />
+        </Link>
+      </div>
     </div>
   )
 }

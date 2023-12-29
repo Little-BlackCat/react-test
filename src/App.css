@@ -6,15 +6,22 @@
 }
 
 .nav {
+  position: absolute;
+  top: 0;
+  right: 5%;
+}
+
+.menu {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
 .home-icon {
   transition: transform .2s;
-  width: 40px;
+  width: 75px;
 }
 
 .home-icon:hover {
