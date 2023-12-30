@@ -2,9 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 import moveReducer from "./slices/moveSlice"
+import languageReducer from './slices/languageSlice'
 
 const reducer = {
-  moveReducer
+  moveReducer,
+  languageReducer
 }
 
 export const store = configureStore({
