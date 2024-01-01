@@ -9,25 +9,23 @@ import {
   Alert,
   message,
 } from "antd";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "../store/store";
+import { useSelector } from "react-redux";
+import { errorIdNumberState, formSelector  } from "../store/slices/formSlice";
 
 const Register = () => {
   const [form] = Form.useForm()
   const { Option } = Select
   const { t } = useTranslation()
   const inputRefs = useRef<HTMLInputElement[]>([])
-  const [options, setOptions] = useState<string[]>([])
-  const [errorIdNumber, setErrorIdNumber] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useAppDispatch();
+  const formReducer = useSelector(formSelector);
 
   useEffect(() => {
-    for (let i = 0; i <= 99; i++) {
-      setOptions((prevOptions) => [
-        ...prevOptions,
-        `+${String(i).padStart(2, "0")}`,
-      ]);
-    }
+
   }, [])
 
   async function onFinish() {
@@ -36,7 +34,7 @@ const Register = () => {
       const idNumber = values["id1"] + values["id2"] +values["id3"] + values["id4"] + values["id5"]
 
       if ( idNumber.length >= 1 && idNumber.length < 13 ) {
-        setErrorIdNumber(true)
+        dispatch(errorIdNumberState(true))
       } else {
         const newValues = {
           ...values,
@@ -44,8 +42,9 @@ const Register = () => {
           idNumber: idNumber,
           telephoneNumber: values["prefixTelephoe"] + values["suffixTelephone"]
         }
-        setErrorIdNumber(false)
+        dispatch(errorIdNumberState(false))
         console.log("Success:", newValues)
+
         messageApi.open({
           type: 'success',
           content: t("successMessage"),
@@ -68,7 +67,7 @@ const Register = () => {
   }
 
   function handleCancel() {
-    setErrorIdNumber(false)
+    dispatch(errorIdNumberState(false))
     form.resetFields();    //reset form
   };
 
@@ -80,7 +79,7 @@ const Register = () => {
       }}
     >
       {contextHolder}
-      {errorIdNumber && (
+      {formReducer.errorIdNumber && (
         <Alert
           message="Error"
           description= {t("errorIdNumberMessage")}
@@ -188,7 +187,6 @@ const Register = () => {
               }}
               pattern="[0-9]{1}"
               maxLength={1}
-              name="id1"
               onChange={(event) => handleInputChange(event, 0)}
             />
           </Form.Item>
@@ -314,7 +312,7 @@ const Register = () => {
                 textAlign: "right",
               }}
             >
-              {options.map((value, index) => (
+              {formReducer.option.map((value, index) => (
                 <Option key={index} value={value}>
                   {value}
                 </Option>
