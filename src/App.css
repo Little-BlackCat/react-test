@@ -134,6 +134,7 @@
 }
 .down {
   transform: rotate(180deg);
+  
 }
 
 .move {
@@ -206,3 +207,10 @@
   margin-bottom: 1rem;
 }
 
+.form {
+  max-width: 1024px;
+  border: solid 2px black;
+  margin: 0 8rem;
+  padding: 1rem;
+  border-radius: 10px;
+}

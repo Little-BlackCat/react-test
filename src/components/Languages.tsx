@@ -37,11 +37,15 @@ const Languages = () => {
         defaultValue={languageFromLocalStorage}
         style={{ width: 120, textAlign: "left" }}
         onChange={onClickLanguagesChange}
-        options={languageOptions.map(lang => ({
-          ...lang,
-          label: t(lang.label)
-        }))}
-      />
+        // options={languageOptions.map(lang => ({
+        //   ...lang,
+        //   label: t(lang.label)
+        // }))}
+      >
+        {languageOptions.map((lang, index) => (
+          <Select.Option key={index} value={lang.value}>{t(lang.label)}</Select.Option>
+        ))}
+      </Select>
 
       {/* <select
         className='dropdown' 

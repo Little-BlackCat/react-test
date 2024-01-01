@@ -1,6 +1,8 @@
 import { Layout } from "antd";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
+import Register from "../components/Register";
+
 
 const Test3 = () => {
   const { Header, Content } = Layout;
@@ -15,6 +17,9 @@ const Test3 = () => {
         <div className="test">
           <h1>{t("desc3")}</h1>
         </div>
+
+        <Register />
+
       </Content>
     </Layout>
   );
