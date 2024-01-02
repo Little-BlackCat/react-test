@@ -38,11 +38,16 @@ const Register = () => {
     { value: "mr", label: "mr" },
     { value: "miss", label: "miss" },
   ];
+  const optionGender = [
+    { value: "male", label: "male" },
+    { value: "female", label: "female" },
+    { value: "noSpecified", label: "noSpecified" },
+  ];
 
-  const option = formReducer.option
-  const errorIdNumber = formReducer.errorIdNumber
-  const resultData = formReducer.resultData
-  const tempData = formReducer.tempData
+  const option = formReducer.option;
+  const errorIdNumber = formReducer.errorIdNumber;
+  const resultData = formReducer.resultData;
+  const tempData = formReducer.tempData;
 
   async function onFinish() {
     try {
@@ -52,17 +57,18 @@ const Register = () => {
         values["id2"] +
         values["id3"] +
         values["id4"] +
-        values["id5"]
+        values["id5"];
 
-        console.log(`Key : ${values["key"]}`)
+      console.log(`Key : ${values["key"]}`);
 
       if (idNumber.length >= 1 && idNumber.length < 13) {
         dispatch(errorIdNumberState(true));
       } else {
-
         const newValues = {
           ...values,
-          key: tempData.key ? tempData.key : resultData[resultData.length - 1].key + 1,
+          key: tempData.key
+            ? tempData.key
+            : resultData[resultData.length - 1].key + 1,
           fullName: `${values["firstName"]} ${values["lastName"]}`,
           birthday: values["birthday"].format("MM/DD/YYYY"),
           idNumber: idNumber,
@@ -111,18 +117,13 @@ const Register = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(loadingStatus(true));
-    }, 500);
+    }, 1000);
     dispatch(loadingStatus(false));
-    console.log(`Temp data: ${tempData.key}`)
+    console.log(`Temp data: ${tempData.key}`);
   }, []);
 
   return (
-    <Flex
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <Flex vertical={true} gap="large">
       {contextHolder}
       {errorIdNumber && (
         <Alert
@@ -139,382 +140,381 @@ const Register = () => {
           <div className="content" />
         </Spin>
       ) : (
-        <Flex vertical={true} gap="large">
-        <Form form={form} name="form" className="form" onFinish={onFinish}>
-          <Flex gap="middle">
-            {/* --- Name Title --- */}
-            <Form.Item
-              name="nameTitle"
-              label={t("nameTitle")}
-              rules={[{ required: true, message: t("validNameTitle") }]}
-              style={{ width: "50%" }}
-              initialValue={tempData?.nameTitle}
-            >
-              <Select
-                placeholder={t("nameTitle")}
-                onSelect={(value) =>
-                  dispatch(tempFormData({ nameTitle: value }))
+        <Flex>
+          <Form form={form} name="form" className="form" onFinish={onFinish}>
+            <Flex gap="middle">
+              {/* --- Name Title --- */}
+              <Form.Item
+                name="nameTitle"
+                label={t("nameTitle")}
+                rules={[{ required: true, message: t("validNameTitle") }]}
+                style={{ width: "50%" }}
+                initialValue={tempData?.nameTitle}
+              >
+                <Select
+                  placeholder={t("nameTitle")}
+                  onSelect={(value) =>
+                    dispatch(tempFormData({ nameTitle: value }))
+                  }
+                >
+                  {optionNameTitle.map((title, index) => (
+                    <Option key={index} value={title.value}>
+                      {t(title.label)}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+
+              {/* --- First Name --- */}
+              <Form.Item
+                name="firstName"
+                label={t("firstName")}
+                rules={[{ required: true, message: t("validFirstName") }]}
+                style={{ width: "100%" }}
+                initialValue={tempData?.firstName}
+              >
+                <Input
+                  type="text"
+                  pattern="[a-zA-Z\u0E00-\u0E7F]+"
+                  onChange={(event) =>
+                    dispatch(tempFormData({ firstName: event.target.value }))
+                  }
+                />
+              </Form.Item>
+
+              {/* --- Last Name --- */}
+              <Form.Item
+                name="lastName"
+                label={t("lastName")}
+                rules={[{ required: true, message: t("validLastName") }]}
+                style={{ width: "100%" }}
+                initialValue={tempData?.lastName}
+              >
+                <Input
+                  type="text"
+                  pattern="[a-zA-Z\u0E00-\u0E7F]+"
+                  onChange={(event) =>
+                    dispatch(tempFormData({ lastName: event.target.value }))
+                  }
+                />
+              </Form.Item>
+            </Flex>
+
+            <Flex gap="middle">
+              {/* --- Birthday --- */}
+              <Form.Item
+                name="birthday"
+                label={t("birthday")}
+                rules={[
+                  {
+                    type: "object" as const,
+                    required: true,
+                    message: t("validBirthday"),
+                  },
+                ]}
+                initialValue={
+                  tempData.birthday ? dayjs(tempData.birthday) : undefined
                 }
               >
-                {optionNameTitle.map((title, index) => (
-                  <Option key={index} value={title.value}>
-                    {t(title.label)}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
+                <DatePicker
+                  format={"MM/DD/YYYY"}
+                  placeholder={t("dateFormat")}
+                  onChange={(value) => {
+                    if (value) {
+                      dispatch(
+                        tempFormData({ birthday: value?.format("MM/DD/YYYY") })
+                      );
+                    }
+                  }}
+                />
+              </Form.Item>
 
-            {/* --- First Name --- */}
-            <Form.Item
-              name="firstName"
-              label={t("firstName")}
-              rules={[{ required: true, message: t("validFirstName") }]}
-              style={{ width: "100%" }}
-              initialValue={tempData?.firstName}
-            >
-              <Input
-                type="text"
-                pattern="[a-zA-Z\u0E00-\u0E7F]+"
-                onChange={(event) =>
-                  dispatch(tempFormData({ firstName: event.target.value }))
-                }
-              />
-            </Form.Item>
-
-            {/* --- Last Name --- */}
-            <Form.Item
-              name="lastName"
-              label={t("lastName")}
-              rules={[{ required: true, message: t("validLastName") }]}
-              style={{ width: "100%" }}
-              initialValue={tempData?.lastName}
-            >
-              <Input
-                type="text"
-                pattern="[a-zA-Z\u0E00-\u0E7F]+"
-                onChange={(event) =>
-                  dispatch(tempFormData({ lastName: event.target.value }))
-                }
-              />
-            </Form.Item>
-          </Flex>
-
-          <Flex gap="middle">
-            {/* --- Birthday --- */}
-            <Form.Item
-              name="birthday"
-              label={t("birthday")}
-              rules={[
-                {
-                  type: "object" as const,
-                  required: true,
-                  message: t("validBirthday"),
-                },
-              ]}
-              initialValue={
-                tempData.birthday
-                  ? dayjs(tempData.birthday)
-                  : undefined
-              }
-            >
-              <DatePicker
-                format={"MM/DD/YYYY"}
-                placeholder={t("dateFormat")}
-                onChange={(value) => {
-                  if (value) {
-                    dispatch(
-                      tempFormData({ birthday: value?.format("MM/DD/YYYY") })
-                    );
-                  }
-                }}
-              />
-            </Form.Item>
-
-            {/* --- Nationality --- */}
-            <Form.Item
-              name="nationality"
-              label={t("nationality")}
-              rules={[{ required: true, message: t("validNationalily") }]}
-              style={{ width: "50%" }}
-              initialValue={tempData?.nationality}
-            >
-              <Select
-                placeholder={t("selectNationality")}
-                onSelect={(value) =>
-                  dispatch(tempFormData({ nationality: value }))
-                }
+              {/* --- Nationality --- */}
+              <Form.Item
+                name="nationality"
+                label={t("nationality")}
+                rules={[{ required: true, message: t("validNationalily") }]}
+                style={{ width: "50%" }}
+                initialValue={tempData?.nationality}
               >
-                <Option value={t("nation")}>{t("nation")}</Option>
-              </Select>
-            </Form.Item>
-          </Flex>
+                <Select
+                  placeholder={t("selectNationality")}
+                  onSelect={(value) =>
+                    dispatch(tempFormData({ nationality: value }))
+                  }
+                >
+                  <Option value={t("nation")}>{t("nation")}</Option>
+                </Select>
+              </Form.Item>
+            </Flex>
 
-          <Flex gap="small" style={{ width: "90%" }}>
-            {/* --- ID Number --- */}
-            <Form.Item
-              name="id0"
-              label={t("idNumber")}
-              style={{ marginInlineEnd: "-8px" }}
-              initialValue=""
-            />
-            <Form.Item
-              name="id1"
-              style={{
-                width: "10%",
-                minWidth: "10%",
-              }}
-              initialValue={tempData.id1}
-            >
-              <Input
-                ref={(el) => {
-                  if (el) {
-                    inputRefs.current[0] = el as unknown as HTMLInputElement;
-                  }
-                }}
-                style={{
-                  textAlign: "center",
-                }}
-                pattern="[0-9]{1}"
-                maxLength={1}
-                onChange={(event) => {
-                  handleInputChange(event, 0),
-                    dispatch(tempFormData({ id1: event.target.value }));
-                }}
+            <Flex gap="small" style={{ width: "90%" }}>
+              {/* --- ID Number --- */}
+              <Form.Item
+                name="id0"
+                label={t("idNumber")}
+                style={{ marginInlineEnd: "-8px" }}
+                initialValue=""
               />
-            </Form.Item>
-            -
-            <Form.Item
-              name="id2"
-              style={{
-                minWidth: "15%",
-              }}
-              initialValue={tempData.id2}
-            >
-              <Input
-                ref={(el) => {
-                  if (el) {
-                    inputRefs.current[1] = el as unknown as HTMLInputElement;
-                  }
-                }}
+              <Form.Item
+                name="id1"
                 style={{
-                  textAlign: "center",
+                  width: "10%",
+                  minWidth: "10%",
                 }}
-                pattern="[0-9]{4}"
-                maxLength={4}
-                onChange={(event) => {
-                  handleInputChange(event, 1),
-                    dispatch(tempFormData({ id2: event.target.value }));
-                }}
-              />
-            </Form.Item>
-            -
-            <Form.Item
-              name="id3"
-              style={{
-                minWidth: "20%",
-              }}
-              initialValue={tempData.id3}
-            >
-              <Input
-                ref={(el) => {
-                  if (el) {
-                    inputRefs.current[2] = el as unknown as HTMLInputElement;
-                  }
-                }}
-                style={{
-                  textAlign: "center",
-                }}
-                pattern="[0-9]{5}"
-                maxLength={5}
-                onChange={(event) => {
-                  handleInputChange(event, 2),
-                    dispatch(tempFormData({ id3: event.target.value }));
-                }}
-              />
-            </Form.Item>
-            -
-            <Form.Item
-              name="id4"
-              style={{
-                width: "20%",
-                minWidth: "10%",
-              }}
-              initialValue={tempData.id4}
-            >
-              <Input
-                ref={(el) => {
-                  if (el) {
-                    inputRefs.current[3] = el as unknown as HTMLInputElement;
-                  }
-                }}
-                style={{
-                  textAlign: "center",
-                }}
-                pattern="[0-9]{2}"
-                maxLength={2}
-                onChange={(event) => {
-                  handleInputChange(event, 3),
-                    dispatch(tempFormData({ id4: event.target.value }));
-                }}
-              />
-            </Form.Item>
-            -
-            <Form.Item
-              name="id5"
-              style={{
-                width: "10%",
-                minWidth: "10%",
-              }}
-              initialValue={tempData.id5}
-            >
-              <Input
-                ref={(el) => {
-                  if (el) {
-                    inputRefs.current[4] = el as unknown as HTMLInputElement;
-                  }
-                }}
-                style={{
-                  textAlign: "center",
-                }}
-                pattern="[0-9]{1}"
-                maxLength={1}
-                onChange={(event) => {
-                  handleInputChange(event, 4),
-                    dispatch(tempFormData({ id5: event.target.value }));
-                }}
-              />
-            </Form.Item>
-          </Flex>
-
-          <Flex>
-            {/* --- Gender --- */}
-            <Form.Item
-              name="gender"
-              label={t("gender")}
-              rules={[{ required: true, message: t("validGender") }]}
-              initialValue={tempData?.gender}
-            >
-              <Radio.Group
-                onChange={(e) =>
-                  dispatch(tempFormData({ gender: e.target.value }))
-                }
+                initialValue={tempData.id1}
               >
-                <Radio value={t("male")}>{t("male")}</Radio>
-                <Radio value={t("female")}>{t("female")}</Radio>
-                <Radio value={t("noSpecified")}>{t("noSpecified")}</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </Flex>
-
-          <Flex gap="small">
-            {/* --- Telephone Number --- */}
-            <Form.Item
-              label={t("telephone")}
-              name="prefixTelephone"
-              rules={[{ required: true, message: "" }]}
-              initialValue={tempData?.prefixTelephone}
-            >
-              <Select
-                onSelect={(value) =>
-                  dispatch(tempFormData({ prefixTelephone: value }))
-                }
+                <Input
+                  ref={(el) => {
+                    if (el) {
+                      inputRefs.current[0] = el as unknown as HTMLInputElement;
+                    }
+                  }}
+                  style={{
+                    textAlign: "center",
+                  }}
+                  pattern="[0-9]{1}"
+                  maxLength={1}
+                  onChange={(event) => {
+                    handleInputChange(event, 0),
+                      dispatch(tempFormData({ id1: event.target.value }));
+                  }}
+                />
+              </Form.Item>
+              -
+              <Form.Item
+                name="id2"
                 style={{
-                  width: "80px",
-                  textAlign: "right",
+                  minWidth: "15%",
                 }}
+                initialValue={tempData.id2}
               >
-                {option.map((value, index) => (
-                  <Option key={index} value={value}>
-                    {value}
-                  </Option>
-                ))}
-              </Select>
-            </Form.Item>
-            -
-            <Form.Item
-              name="suffixTelephone"
-              rules={[
-                {
-                  required: true,
-                  message: t("validTelephone"),
-                },
-              ]}
-              initialValue={tempData?.suffixTelephone}
-            >
-              <Input
-                onChange={(e) =>
-                  dispatch(tempFormData({ suffixTelephone: e.target.value }))
-                }
-                pattern="[0-9]{8}"
-                maxLength={8}
-              />
-            </Form.Item>
-          </Flex>
-
-          <Flex>
-            {/* --- Passport --- */}
-            <Form.Item
-              name="passport"
-              label={t("passport")}
-              initialValue={tempData?.passport}
-            >
-              <Input
-                onChange={(e) =>
-                  dispatch(tempFormData({ passport: e.target.value }))
-                }
+                <Input
+                  ref={(el) => {
+                    if (el) {
+                      inputRefs.current[1] = el as unknown as HTMLInputElement;
+                    }
+                  }}
+                  style={{
+                    textAlign: "center",
+                  }}
+                  pattern="[0-9]{4}"
+                  maxLength={4}
+                  onChange={(event) => {
+                    handleInputChange(event, 1),
+                      dispatch(tempFormData({ id2: event.target.value }));
+                  }}
+                />
+              </Form.Item>
+              -
+              <Form.Item
+                name="id3"
                 style={{
-                  width: "300px",
+                  minWidth: "20%",
                 }}
-                pattern="[0-9]{9}"
-                maxLength={9}
-              />
-            </Form.Item>
-          </Flex>
-
-          <Flex
-            style={{
-              justifyContent: "space-between",
-            }}
-          >
-            {/* --- Expected Salary --- */}
-            <Form.Item
-              name="expectedSalary"
-              label={t("expectedSalary")}
-              rules={[
-                {
-                  required: true,
-                  message: t("validExpectedSalary"),
-                },
-              ]}
-              initialValue={tempData?.expectedSalary}
-            >
-              <Input
-                onChange={(e) =>
-                  dispatch(tempFormData({ expectedSalary: e.target.value }))
-                }
+                initialValue={tempData.id3}
+              >
+                <Input
+                  ref={(el) => {
+                    if (el) {
+                      inputRefs.current[2] = el as unknown as HTMLInputElement;
+                    }
+                  }}
+                  style={{
+                    textAlign: "center",
+                  }}
+                  pattern="[0-9]{5}"
+                  maxLength={5}
+                  onChange={(event) => {
+                    handleInputChange(event, 2),
+                      dispatch(tempFormData({ id3: event.target.value }));
+                  }}
+                />
+              </Form.Item>
+              -
+              <Form.Item
+                name="id4"
                 style={{
-                  width: "270px",
+                  width: "20%",
+                  minWidth: "10%",
                 }}
-                pattern="[0-9]+"
-              />
-            </Form.Item>
+                initialValue={tempData.id4}
+              >
+                <Input
+                  ref={(el) => {
+                    if (el) {
+                      inputRefs.current[3] = el as unknown as HTMLInputElement;
+                    }
+                  }}
+                  style={{
+                    textAlign: "center",
+                  }}
+                  pattern="[0-9]{2}"
+                  maxLength={2}
+                  onChange={(event) => {
+                    handleInputChange(event, 3),
+                      dispatch(tempFormData({ id4: event.target.value }));
+                  }}
+                />
+              </Form.Item>
+              -
+              <Form.Item
+                name="id5"
+                style={{
+                  width: "10%",
+                  minWidth: "10%",
+                }}
+                initialValue={tempData.id5}
+              >
+                <Input
+                  ref={(el) => {
+                    if (el) {
+                      inputRefs.current[4] = el as unknown as HTMLInputElement;
+                    }
+                  }}
+                  style={{
+                    textAlign: "center",
+                  }}
+                  pattern="[0-9]{1}"
+                  maxLength={1}
+                  onChange={(event) => {
+                    handleInputChange(event, 4),
+                      dispatch(tempFormData({ id5: event.target.value }));
+                  }}
+                />
+              </Form.Item>
+            </Flex>
 
-            {/* --- Button --- */}
+            <Flex>
+              {/* --- Gender --- */}
+              <Form.Item
+                name="gender"
+                label={t("gender")}
+                rules={[{ required: true, message: t("validGender") }]}
+                initialValue={tempData?.gender}
+              >
+                <Radio.Group
+                  onChange={(e) =>
+                    dispatch(tempFormData({ gender: e.target.value }))
+                  }
+                >
+                  {optionGender.map((option, index) => (
+                    <Radio key={index} value={t(option.value)}>
+                      {t(option.label)}
+                    </Radio>
+                  ))}
+                </Radio.Group>
+              </Form.Item>
+            </Flex>
+
+            <Flex gap="small">
+              {/* --- Telephone Number --- */}
+              <Form.Item
+                label={t("telephone")}
+                name="prefixTelephone"
+                rules={[{ required: true, message: "" }]}
+                initialValue={tempData?.prefixTelephone}
+              >
+                <Select
+                  onSelect={(value) =>
+                    dispatch(tempFormData({ prefixTelephone: value }))
+                  }
+                  style={{
+                    width: "80px",
+                    textAlign: "right",
+                  }}
+                >
+                  {option.map((value, index) => (
+                    <Option key={index} value={value}>
+                      {value}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              -
+              <Form.Item
+                name="suffixTelephone"
+                rules={[
+                  {
+                    required: true,
+                    message: t("validTelephone"),
+                  },
+                ]}
+                initialValue={tempData?.suffixTelephone}
+              >
+                <Input
+                  onChange={(e) =>
+                    dispatch(tempFormData({ suffixTelephone: e.target.value }))
+                  }
+                  pattern="[0-9]{8}"
+                  maxLength={8}
+                />
+              </Form.Item>
+            </Flex>
+
+            <Flex>
+              {/* --- Passport --- */}
+              <Form.Item
+                name="passport"
+                label={t("passport")}
+                initialValue={tempData?.passport}
+              >
+                <Input
+                  onChange={(e) =>
+                    dispatch(tempFormData({ passport: e.target.value }))
+                  }
+                  style={{
+                    width: "300px",
+                  }}
+                  pattern="[0-9]{9}"
+                  maxLength={9}
+                />
+              </Form.Item>
+            </Flex>
+
             <Flex
               style={{
-                justifyContent: "space-evenly",
-                width: "50%",
+                justifyContent: "space-between",
               }}
             >
-              <Button onClick={handleCancel}>{t("clearData")}</Button>
-              <Button htmlType="submit">{t("sendData")}</Button>
-            </Flex>
-          </Flex>
-        </Form>
+              {/* --- Expected Salary --- */}
+              <Form.Item
+                name="expectedSalary"
+                label={t("expectedSalary")}
+                rules={[
+                  {
+                    required: true,
+                    message: t("validExpectedSalary"),
+                  },
+                ]}
+                initialValue={tempData?.expectedSalary}
+              >
+                <Input
+                  onChange={(e) =>
+                    dispatch(tempFormData({ expectedSalary: e.target.value }))
+                  }
+                  style={{
+                    width: "270px",
+                  }}
+                  pattern="[0-9]+"
+                />
+              </Form.Item>
 
-<Result />
+              {/* --- Button --- */}
+              <Flex
+                style={{
+                  justifyContent: "space-evenly",
+                  width: "50%",
+                }}
+              >
+                <Button onClick={handleCancel}>{t("clearData")}</Button>
+                <Button htmlType="submit">{t("sendData")}</Button>
+              </Flex>
+            </Flex>
+          </Form>
         </Flex>
-)}
+      )}
+      <Result />
     </Flex>
   );
 };
