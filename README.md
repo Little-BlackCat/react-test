@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# React Test Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Frontend React Implementation
 
-Currently, two official plugins are available:
+### Overview
+The frontend of the React Test project is developed using React, with specific details outlined in the attached files. Notable features and technologies include Typescript for enhanced typing, i18next for language switching, and Ant Design for efficient layout organization.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Button Styling
+The layout incorporates a visually appealing button design utilizing Ant Design. Additionally, custom CSS is employed to create various button shapes. The color scheme chosen for the buttons consists of #ffa200 and #6eda78.
 
-## Expanding the ESLint configuration
+### Button Interactions
+Each button serves a unique purpose in managing webpage interactions:
+- **Move Shape:** Moves the shape below and rotates it to the left.
+- **Move Position:** Swaps the grid layout up and down.
+- Clicking on buttons with different shapes triggers a random repositioning of the shapes.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Single Page Application (SPA) with Ant Design - Personal Data Management
 
-- Configure the top-level `parserOptions` property like this:
+### Overview
+The SPA is designed for efficient personal data management. The focus is on creating, editing, and deleting personal data entries with seamless user interactions.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Data Handling
+Data persistence is a crucial aspect of the application, achieved by managing Create, Edit, and Delete operations on local storage. This ensures that user-entered information remains intact even after a page refresh.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### State Management
+Redux-toolkit is employed to manage the state of form data, offering a more structured and efficient alternative to the traditional useState hook.
+
+### Table Functionality
+The data table boasts advanced features such as pagination and sorting for a more user-friendly experience. Users can conveniently select and delete specific entries based on their preferences.
+
+## Conclusion
+The React Test project demonstrates a comprehensive implementation of frontend React development and a robust Single Page Application for personal data management. The use of cutting-edge technologies, thoughtful button interactions, and effective data handling contribute to a well-rounded and user-friendly application.
