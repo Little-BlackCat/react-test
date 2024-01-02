@@ -39,6 +39,11 @@ const Register = () => {
     { value: "miss", label: "miss" },
   ];
 
+  const option = formReducer.option
+  const errorIdNumber = formReducer.errorIdNumber
+  const resultData = formReducer.resultData
+  const tempData = formReducer.tempData
+
   async function onFinish() {
     try {
       const values = await form.validateFields();
@@ -47,7 +52,9 @@ const Register = () => {
         values["id2"] +
         values["id3"] +
         values["id4"] +
-        values["id5"];
+        values["id5"]
+
+        console.log(`Key : ${values["key"]}`)
 
       if (idNumber.length >= 1 && idNumber.length < 13) {
         dispatch(errorIdNumberState(true));
@@ -55,7 +62,7 @@ const Register = () => {
 
         const newValues = {
           ...values,
-          key: formReducer.resultData.length === 0 ? 1 : formReducer.resultData[formReducer.resultData.length - 1].key + 1,
+          key: tempData.key ? tempData.key : resultData[resultData.length - 1].key + 1,
           fullName: `${values["firstName"]} ${values["lastName"]}`,
           birthday: values["birthday"].format("MM/DD/YYYY"),
           idNumber: idNumber,
@@ -69,12 +76,11 @@ const Register = () => {
 
         setTimeout(() => {
           window.location.reload();
-          messageApi.open({
-            type: "success",
-            content: t("successMessage"),
-          });
         }, 1000);
-
+        messageApi.open({
+          type: "success",
+          content: t("successMessage"),
+        });
       }
     } catch (errorInfo) {
       console.log("Failed:", errorInfo);
@@ -105,8 +111,9 @@ const Register = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(loadingStatus(true));
-    }, 1000);
+    }, 500);
     dispatch(loadingStatus(false));
+    console.log(`Temp data: ${tempData.key}`)
   }, []);
 
   return (
@@ -117,7 +124,7 @@ const Register = () => {
       }}
     >
       {contextHolder}
-      {formReducer.errorIdNumber && (
+      {errorIdNumber && (
         <Alert
           message="Error"
           description={t("errorIdNumberMessage")}
@@ -141,7 +148,7 @@ const Register = () => {
               label={t("nameTitle")}
               rules={[{ required: true, message: t("validNameTitle") }]}
               style={{ width: "50%" }}
-              initialValue={formReducer.tempData?.nameTitle}
+              initialValue={tempData?.nameTitle}
             >
               <Select
                 placeholder={t("nameTitle")}
@@ -163,7 +170,7 @@ const Register = () => {
               label={t("firstName")}
               rules={[{ required: true, message: t("validFirstName") }]}
               style={{ width: "100%" }}
-              initialValue={formReducer.tempData?.firstName}
+              initialValue={tempData?.firstName}
             >
               <Input
                 type="text"
@@ -180,7 +187,7 @@ const Register = () => {
               label={t("lastName")}
               rules={[{ required: true, message: t("validLastName") }]}
               style={{ width: "100%" }}
-              initialValue={formReducer.tempData?.lastName}
+              initialValue={tempData?.lastName}
             >
               <Input
                 type="text"
@@ -205,8 +212,8 @@ const Register = () => {
                 },
               ]}
               initialValue={
-                formReducer.tempData.birthday
-                  ? dayjs(formReducer.tempData.birthday)
+                tempData.birthday
+                  ? dayjs(tempData.birthday)
                   : undefined
               }
             >
@@ -229,7 +236,7 @@ const Register = () => {
               label={t("nationality")}
               rules={[{ required: true, message: t("validNationalily") }]}
               style={{ width: "50%" }}
-              initialValue={formReducer.tempData?.nationality}
+              initialValue={tempData?.nationality}
             >
               <Select
                 placeholder={t("selectNationality")}
@@ -256,7 +263,7 @@ const Register = () => {
                 width: "10%",
                 minWidth: "10%",
               }}
-              initialValue={formReducer.tempData.id1}
+              initialValue={tempData.id1}
             >
               <Input
                 ref={(el) => {
@@ -281,7 +288,7 @@ const Register = () => {
               style={{
                 minWidth: "15%",
               }}
-              initialValue={formReducer.tempData.id2}
+              initialValue={tempData.id2}
             >
               <Input
                 ref={(el) => {
@@ -306,7 +313,7 @@ const Register = () => {
               style={{
                 minWidth: "20%",
               }}
-              initialValue={formReducer.tempData.id3}
+              initialValue={tempData.id3}
             >
               <Input
                 ref={(el) => {
@@ -332,7 +339,7 @@ const Register = () => {
                 width: "20%",
                 minWidth: "10%",
               }}
-              initialValue={formReducer.tempData.id4}
+              initialValue={tempData.id4}
             >
               <Input
                 ref={(el) => {
@@ -358,7 +365,7 @@ const Register = () => {
                 width: "10%",
                 minWidth: "10%",
               }}
-              initialValue={formReducer.tempData.id5}
+              initialValue={tempData.id5}
             >
               <Input
                 ref={(el) => {
@@ -385,7 +392,7 @@ const Register = () => {
               name="gender"
               label={t("gender")}
               rules={[{ required: true, message: t("validGender") }]}
-              initialValue={formReducer.tempData?.gender}
+              initialValue={tempData?.gender}
             >
               <Radio.Group
                 onChange={(e) =>
@@ -405,7 +412,7 @@ const Register = () => {
               label={t("telephone")}
               name="prefixTelephone"
               rules={[{ required: true, message: "" }]}
-              initialValue={formReducer.tempData?.prefixTelephone}
+              initialValue={tempData?.prefixTelephone}
             >
               <Select
                 onSelect={(value) =>
@@ -416,7 +423,7 @@ const Register = () => {
                   textAlign: "right",
                 }}
               >
-                {formReducer.option.map((value, index) => (
+                {option.map((value, index) => (
                   <Option key={index} value={value}>
                     {value}
                   </Option>
@@ -432,7 +439,7 @@ const Register = () => {
                   message: t("validTelephone"),
                 },
               ]}
-              initialValue={formReducer.tempData?.suffixTelephone}
+              initialValue={tempData?.suffixTelephone}
             >
               <Input
                 onChange={(e) =>
@@ -449,7 +456,7 @@ const Register = () => {
             <Form.Item
               name="passport"
               label={t("passport")}
-              initialValue={formReducer.tempData?.passport}
+              initialValue={tempData?.passport}
             >
               <Input
                 onChange={(e) =>
@@ -479,7 +486,7 @@ const Register = () => {
                   message: t("validExpectedSalary"),
                 },
               ]}
-              initialValue={formReducer.tempData?.expectedSalary}
+              initialValue={tempData?.expectedSalary}
             >
               <Input
                 onChange={(e) =>

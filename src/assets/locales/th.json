@@ -42,5 +42,6 @@
   "selectAll": "เลือกทั้งหมด",
   "deleteData": "ลบข้อมูล",
   "name": "ชื่อ",
-  "management": "การจัดการ"
+  "management": "การจัดการ",
+  "deletedMessageSuccess": "ลบข้อมูลสำเร็จ"
 }

@@ -42,5 +42,6 @@
   "selectAll": "Select All",
   "deleteData": "Delete Data",
   "name": "Name",
-  "management": "Management"
+  "management": "Management",
+  "deletedMessageSuccess": "Delete data success."
 }

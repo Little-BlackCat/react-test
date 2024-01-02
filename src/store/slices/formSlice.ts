@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import React from "react";
 
 interface PersonalData {
   key: number;
@@ -111,10 +112,20 @@ const formSlice = createSlice({
       state.errorIdNumber = action.payload;
     },
     sendFormData: (state: FormState, action: PayloadAction<PersonalData>) => {
-      const newData = {
-        ...action.payload,
+      const index = state.resultData.findIndex((item) => item.key === state.tempData.key)
+      
+      if (index !== -1) {
+        state.resultData[index] = {
+          ...action.payload,
+          key: state.tempData.key,
+        }
+      } else {
+        const newData = {
+          ...action.payload,
+        }
+        state.resultData.push(newData)
       }
-      state.resultData.push(newData);
+
       Object.keys(state.tempData).forEach((key) => {
         (state.tempData as any)[key] = ""; // Type assertion
       });
@@ -130,10 +141,21 @@ const formSlice = createSlice({
         (state.tempData as any)[key] = ""; // Type assertion
       });
     },
+    deleteSelectData: (state: FormState, action: PayloadAction<React.Key[]>) => {  
+      state.resultData = state.resultData.filter((item) => {
+        return !action.payload.includes(item.key);
+      });
+    },
+    editSelectData: (state: FormState, action: PayloadAction<React.Key>) => {
+      const editData = state.resultData.find((item) => item.key === action.payload)
+      if(editData) {
+        state.tempData = editData
+      }
+    }
   },
 });
 
-export const { errorIdNumberState, sendFormData, tempFormData, clearFormData } =
+export const { errorIdNumberState, sendFormData, tempFormData, clearFormData, deleteSelectData, editSelectData } =
   formSlice.actions;
 export const formSelector = (store: RootState) => store.formReducer;
 export default formSlice.reducer;

@@ -11,14 +11,14 @@ export interface DataType {
 }
 
 type ResultState = {
-  data: DataType[],
+  dataSource: DataType[],
   selectedRowKeys: React.Key[],
   hasSelected: boolean,
   loading: boolean,
 }
 
 const initialValue: ResultState = {
-  data: [ 
+  dataSource: [ 
     {
       key: "initialRow", 
       fullName: "",
@@ -36,6 +36,9 @@ const resultSlice = createSlice({
   name: "result",
   initialState: initialValue,
   reducers: {
+    setDefualtData: (state: ResultState, action: PayloadAction<DataType[]>) => {
+      state.dataSource = action.payload
+    },
     onSelectChange: (state: ResultState, action: PayloadAction<any>) => {
       state.selectedRowKeys = action.payload
       state.hasSelected = action.payload.length > 0
@@ -52,12 +55,14 @@ const resultSlice = createSlice({
     loadingProcess: (state: ResultState, action: PayloadAction<boolean>) => {
       state.loading = action.payload
     },
-    deleteSelectData: (state: ResultState, action: PayloadAction<React.Key[]>) => {
-      
+    setDefultSelected: (state: ResultState, action: PayloadAction<void>) => {
+      state.selectedRowKeys = []
+      state.hasSelected = false
     }
+    
   }
 })
 
-export const { onSelectChange, handleSelectAll, loadingProcess } = resultSlice.actions
+export const { setDefualtData, onSelectChange, handleSelectAll, loadingProcess, setDefultSelected } = resultSlice.actions
 export const resultSelector = (store: RootState) => store.resultReducer
 export default resultSlice.reducer
