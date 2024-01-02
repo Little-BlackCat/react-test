@@ -6,6 +6,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 
 import moveReducer from "./slices/moveSlice"
 import formReducer from "./slices/formSlice"
+import loadingReducer from "./slices/loadingSlice"
 
 const persistConfig = {
   key: "root",
@@ -15,7 +16,8 @@ const persistConfig = {
 
 const reducer = combineReducers({
   moveReducer,
-  formReducer
+  formReducer,
+  loadingReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
