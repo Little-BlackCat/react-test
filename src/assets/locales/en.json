@@ -38,5 +38,9 @@
   "clearData": "Clear Data",
   "sendData": "Send Data",
   "errorIdNumberMessage" : "Please enter the full 13-digit national ID number if required!",
-  "successMessage" : "Send data success 📨."
+  "successMessage" : "Send data success 📨.",
+  "selectAll": "Select All",
+  "deleteData": "Delete Data",
+  "name": "Name",
+  "management": "Management"
 }

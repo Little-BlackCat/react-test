@@ -23,6 +23,7 @@ import {
   tempFormData,
 } from "../store/slices/formSlice";
 import { loadingSelector, loadingStatus } from "../store/slices/loadingSlice";
+import Result from "./Result";
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -54,6 +55,8 @@ const Register = () => {
 
         const newValues = {
           ...values,
+          key: formReducer.resultData.length === 0 ? 1 : formReducer.resultData[formReducer.resultData.length - 1].key + 1,
+          fullName: `${values["firstName"]} ${values["lastName"]}`,
           birthday: values["birthday"].format("MM/DD/YYYY"),
           idNumber: idNumber,
           telephoneNumber:
@@ -66,12 +69,11 @@ const Register = () => {
 
         setTimeout(() => {
           window.location.reload();
+          messageApi.open({
+            type: "success",
+            content: t("successMessage"),
+          });
         }, 1000);
-
-        messageApi.open({
-          type: "success",
-          content: t("successMessage"),
-        });
 
       }
     } catch (errorInfo) {
@@ -101,9 +103,6 @@ const Register = () => {
   }
 
   useEffect(() => {
-    console.log(`TempData : ${formReducer.tempData}`);
-    console.log(`SendData : ${formReducer.resultData}`);
-    console.log(`NameTitleData : ${t("mr")}`);
     setTimeout(() => {
       dispatch(loadingStatus(true));
     }, 1000);
@@ -133,6 +132,7 @@ const Register = () => {
           <div className="content" />
         </Spin>
       ) : (
+        <Flex vertical={true} gap="large">
         <Form form={form} name="form" className="form" onFinish={onFinish}>
           <Flex gap="middle">
             {/* --- Name Title --- */}
@@ -504,7 +504,10 @@ const Register = () => {
             </Flex>
           </Flex>
         </Form>
-      )}
+
+<Result />
+        </Flex>
+)}
     </Flex>
   );
 };

@@ -2,9 +2,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 interface PersonalData {
+  key: number;
   nameTitle: string;
   firstName: string;
   lastName: string;
+  fullName: string;
   birthday: string;
   nationality: string;
   gender: string;
@@ -30,9 +32,11 @@ type FormState = {
   resultData: PersonalData[];
   tempData: Pick<
     PersonalData,
+    | "key"
     | "nameTitle"
     | "firstName"
     | "lastName"
+    | "fullName"
     | "birthday"
     | "nationality"
     | "gender"
@@ -50,9 +54,11 @@ type FormState = {
 
 const initialValue: FormState = {
   formData: {
+    key: 0,
     nameTitle: "",
     firstName: "",
     lastName: "",
+    fullName: "",
     birthday: "",
     nationality: "",
     gender: "",
@@ -77,9 +83,11 @@ const initialValue: FormState = {
   errorIdNumber: false,
   resultData: [],
   tempData: {
+    key: 0,
     nameTitle: "",
     firstName: "",
     lastName: "",
+    fullName: "",
     birthday: "",
     nationality: "",
     gender: "",
@@ -103,7 +111,10 @@ const formSlice = createSlice({
       state.errorIdNumber = action.payload;
     },
     sendFormData: (state: FormState, action: PayloadAction<PersonalData>) => {
-      state.resultData.push(action.payload);
+      const newData = {
+        ...action.payload,
+      }
+      state.resultData.push(newData);
       Object.keys(state.tempData).forEach((key) => {
         (state.tempData as any)[key] = ""; // Type assertion
       });
@@ -115,15 +126,6 @@ const formSlice = createSlice({
       };
     },
     clearFormData: (state: FormState, action: PayloadAction<void>) => {
-      // const keys = Object.keys(state.tempData)
-      // const newTemp = state.tempData = {
-      //   ...state.tempData,
-      //   ...keys.reduce((acc, key) => ({
-      //     ...acc,
-      //     [key]: "",
-      //   }), {})
-      // }
-      // state.tempData = newTemp
       Object.keys(state.tempData).forEach((key) => {
         (state.tempData as any)[key] = ""; // Type assertion
       });
