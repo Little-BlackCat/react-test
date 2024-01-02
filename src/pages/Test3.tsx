@@ -1,15 +1,28 @@
-import { useTranslation } from "react-i18next"
+import { Layout } from "antd";
+import { useTranslation } from "react-i18next";
+import Navbar from "../components/Navbar";
+import Register from "../components/Register";
+
 
 const Test3 = () => {
-  const { t } = useTranslation()
+  const { Header, Content } = Layout;
+  const { t } = useTranslation();
 
   return (
-    <div className="test">
-      <h1>
-        {t("desc3")}
-      </h1>
-    </div>
-  )
-}
+    <Layout className="layout">
+      <Header className="header">
+        <Navbar />
+      </Header>
+      <Content className="main">
+        <div className="test">
+          <h1>{t("desc3")}</h1>
+        </div>
 
-export default Test3
+        <Register />
+
+      </Content>
+    </Layout>
+  );
+};
+
+export default Test3;

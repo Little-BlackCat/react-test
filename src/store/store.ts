@@ -1,15 +1,31 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
 
 import moveReducer from "./slices/moveSlice"
+import formReducer from "./slices/formSlice"
+import loadingReducer from "./slices/loadingSlice"
+import resultReducer from "./slices/resultSlice"
 
-const reducer = {
-  moveReducer
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
 }
 
+const reducer = combineReducers({
+  moveReducer,
+  formReducer,
+  loadingReducer,
+  resultReducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 export const store = configureStore({
-  reducer,
-  devTools: import.meta.env.VITE_NODE_ENV === "development",
+  reducer: persistedReducer,
 })
 
 // export type of root state from reducers
