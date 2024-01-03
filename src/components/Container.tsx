@@ -6,7 +6,7 @@ interface ContainerType {
 
 const Container = ({ title, desc }: ContainerType) => {
   return (
-    <div>
+    <div className="container-detail">
       <h4>{title}</h4>
       <p>{desc}</p>
     </div>
