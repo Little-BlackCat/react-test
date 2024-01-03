@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import Languages from "./Languages"
-import homeIcon from "../assets/home.png"
+import homeIcon from "../../public/home.png"
 
 const Navbar = () => {
   return (
