@@ -136,7 +136,7 @@ const formSlice = createSlice({
         ...action.payload,
       };
     },
-    clearFormData: (state: FormState, action: PayloadAction<void>) => {
+    clearFormData: (state: FormState) => {
       Object.keys(state.tempData).forEach((key) => {
         (state.tempData as any)[key] = ""; // Type assertion
       });

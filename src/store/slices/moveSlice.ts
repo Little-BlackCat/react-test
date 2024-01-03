@@ -15,7 +15,7 @@ const moveSlice = createSlice({
   name: "move",
   initialState: initialValue,
   reducers: {
-    random: (state: MoveState, action: PayloadAction<void>) => {
+    random: (state: MoveState) => {
       // Function to shuffle the array
       const newArray = [...state.shapeList]
       for (let i = newArray.length - 1; i > 0; i--) {
@@ -38,7 +38,7 @@ const moveSlice = createSlice({
       newArray.unshift(lastItem); // push first item
       state.shapeList = newArray // set new state
     },
-    movePosition: (state: MoveState, action: PayloadAction<void>) => {
+    movePosition: (state: MoveState) => {
       state.position = state.position === "result-default" ? "result-reverse" : "result-default"
     }
   },

@@ -55,7 +55,7 @@ const resultSlice = createSlice({
     loadingProcess: (state: ResultState, action: PayloadAction<boolean>) => {
       state.loading = action.payload
     },
-    setDefultSelected: (state: ResultState, action: PayloadAction<void>) => {
+    setDefultSelected: (state: ResultState) => {
       state.selectedRowKeys = []
       state.hasSelected = false
     }
