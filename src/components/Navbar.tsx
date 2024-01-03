@@ -7,7 +7,7 @@ const Navbar = () => {
     <div data-testid="navbar" className="nav">
       <div data-testid="menu" className="menu">
         <Languages />
-        <Link data-testid="link" className="link-to-home" to="/">
+        <Link data-testid="link" className="link-to-home" to="/react-test/">
           <img data-testid="home-icon" className="home-icon" src={homeIcon} alt="home" />
         </Link>
       </div>

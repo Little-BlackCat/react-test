@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/react-test" element={<Home />} />
         <Route path="/react-test/test1" element={<Test1 />} />
         <Route path="/react-test/test3" element={<Test3 />} />
         <Route path="*" element={<Home />} />
