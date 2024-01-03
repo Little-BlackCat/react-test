@@ -22,14 +22,21 @@ const Languages = () => {
   }, [languageFromLocalStorage])
 
   return (
-    <div className="languages">
+    <div data-testid="languages" className="languages">
       <Select
+        data-testid="languages-selected"
         defaultValue={languageFromLocalStorage}
         style={{ width: 120, textAlign: "left" }}
         onChange={onClickLanguagesChange}
       >
         {languageOptions.map((lang, index) => (
-          <Select.Option key={index} value={lang.value}>{t(lang.label)}</Select.Option>
+          <Select.Option
+            data-testid={`languages-option-${lang.value}`}
+            key={index} 
+            value={lang.value}
+          >
+            {t(lang.label)}
+          </Select.Option>
         ))}
       </Select>
     </div>

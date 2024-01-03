@@ -10,11 +10,11 @@ const Home = () => {
 
   return (
     <Layout className="layout">
-      <Header className="header">
+      <Header data-testid="header" className="header">
         <Navbar />
       </Header>
-      <Content className="main">
-        <div className="home">
+      <Content data-testid="main" className="main">
+        <div data-testid="home" className="home">
           <Link className="container" to="/test1">
             <Container title={t("test1")} desc={t("desc1")} />
           </Link>
