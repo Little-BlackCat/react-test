@@ -1,9 +1,12 @@
 {
+  "homepage": "https://Little-BlackCat.github.io/react-test/",
   "name": "react-test",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "test": "cypress run",
     "cypress:open": "cypress open",
