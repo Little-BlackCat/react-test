@@ -32,7 +32,7 @@ describe('Home Page', () => {
                       .and('have.class', 'home-icon')
                   })
                   .click()
-                  .should('have.attr', 'href', '/');
+                  .should('have.attr', 'href', '/react-test/');
               })
           })
       })
@@ -79,7 +79,7 @@ describe('Home Page', () => {
 
   it('should visit to Test 3 page', () => {
     cy.get('[data-testid="home"] .container').eq(2).click()
-    cy.url().should('include', '/react-test/test1');
+    cy.url().should('include', '/react-test/test3');
   })
   
 })
