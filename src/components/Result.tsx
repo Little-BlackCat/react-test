@@ -92,9 +92,8 @@ const Result = () => {
   }
 
   function editHandler(key: React.Key) {
-    console.log("Hello!!!!", key)
     dispatch(editSelectData(key))
-    window.location.reload()
+    location.reload()
   }
   
   useEffect(() => {

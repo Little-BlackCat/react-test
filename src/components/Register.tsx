@@ -59,8 +59,6 @@ const Register = () => {
         values["id4"] +
         values["id5"];
 
-      console.log(`Key : ${values["key"]}`);
-
       if (idNumber.length >= 1 && idNumber.length < 13) {
         dispatch(errorIdNumberState(true));
       } else {
@@ -78,10 +76,9 @@ const Register = () => {
 
         dispatch(errorIdNumberState(false));
         dispatch(sendFormData(newValues));
-        console.log("Success:", newValues);
 
         setTimeout(() => {
-          window.location.reload();
+          location.reload();
         }, 1000);
         messageApi.open({
           type: "success",
@@ -111,7 +108,7 @@ const Register = () => {
     dispatch(errorIdNumberState(false));
     dispatch(clearFormData());
     form.resetFields(); //reset form
-    window.location.reload();
+    location.reload();
   }
 
   useEffect(() => {
@@ -119,7 +116,6 @@ const Register = () => {
       dispatch(loadingStatus(true));
     }, 1000);
     dispatch(loadingStatus(false));
-    console.log(`Temp data: ${tempData.key}`);
   }, []);
 
   return (
