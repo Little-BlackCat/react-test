@@ -13,7 +13,7 @@ const Languages = () => {
   async function onClickLanguagesChange (value: string) {
     await i18n.changeLanguage(value)
     localStorage.setItem("language", value)
-    window.location.reload()
+    location.reload()
   }
 
   useEffect(() => {

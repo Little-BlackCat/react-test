@@ -32,7 +32,7 @@ describe('Home Page', () => {
                       .and('have.class', 'home-icon')
                   })
                   .click()
-                  .should('have.attr', 'href', '/');
+                  cy.url().should('include', '/react-test/');
               })
           })
       })
