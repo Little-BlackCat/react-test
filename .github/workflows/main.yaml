@@ -6,7 +6,7 @@ on:
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
