@@ -69,7 +69,7 @@ describe('Home Page', () => {
 
   it('should visit to Test 1 page', () => {
     cy.get('[data-testid="home"] .container').eq(0).click()
-    cy.url().should('include', '/react-test/test1');
+    cy.url().should('include', '/test1');
   })
 
   it('should not visit any page', () => {
@@ -79,7 +79,7 @@ describe('Home Page', () => {
 
   it('should visit to Test 3 page', () => {
     cy.get('[data-testid="home"] .container').eq(2).click()
-    cy.url().should('include', '/react-test/test3');
+    cy.url().should('include', '/test3');
   })
   
 })

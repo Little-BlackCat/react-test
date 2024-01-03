@@ -15,7 +15,7 @@ const Home = () => {
       </Header>
       <Content data-testid="main" className="main">
         <div data-testid="home" className="home">
-          <Link className="container" to="/react-test/test1">
+          <Link className="container" to="/test1">
             <Container title={t("test1")} desc={t("desc1")} />
           </Link>
 
@@ -23,7 +23,7 @@ const Home = () => {
             <Container title={t("test2")} desc={t("desc2")} />
           </Link>
 
-          <Link className="container" to="/react-test/test3">
+          <Link className="container" to="/test3">
             <Container title={t("test3")} desc={t("desc3")} />
           </Link>
         </div>
