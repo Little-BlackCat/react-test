@@ -48,6 +48,7 @@ const Register = () => {
   const errorIdNumber = formReducer.errorIdNumber;
   const resultData = formReducer.resultData;
   const tempData = formReducer.tempData;
+  const loading = loadingReducer.loading
 
   async function onFinish() {
     try {
@@ -61,12 +62,14 @@ const Register = () => {
 
       if (idNumber.length >= 1 && idNumber.length < 13) {
         dispatch(errorIdNumberState(true));
+
       } else {
+
         const newValues = {
           ...values,
-          key: tempData.key
-            ? tempData.key
-            : resultData[resultData.length - 1].key + 1,
+          key: tempData.key === "" as React.Key
+            ? Math.max(...resultData.map((item) => item.key)) + 1 | resultData.length + 1
+            : tempData.key,
           fullName: `${values["firstName"]} ${values["lastName"]}`,
           birthday: values["birthday"].format("MM/DD/YYYY"),
           idNumber: idNumber,
@@ -119,7 +122,7 @@ const Register = () => {
   }, []);
 
   return (
-    <Flex vertical={true} gap="large">
+    <Flex vertical={true} gap="large" style={{  }}>
       {contextHolder}
       {errorIdNumber && (
         <Alert
@@ -127,11 +130,11 @@ const Register = () => {
           description={t("errorIdNumberMessage")}
           type="error"
           showIcon
-          style={{ position: "absolute", top: "5%", width: "50%" }}
+          style={{ position: "absolute", top: "3%", width: "50%", left: "25%" }}
           closable
         />
       )}
-      {loadingReducer.loading ? (
+      {loading ? (
         <Spin tip="Loading" size="large">
           <div className="content" />
         </Spin>
