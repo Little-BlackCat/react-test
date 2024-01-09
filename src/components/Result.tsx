@@ -51,14 +51,6 @@ const Result = () => {
     },
   ]
 
-  // const dataSource: DataType[] = resultData.map((data) => ({
-  //   key: data.key as React.Key,
-  //   fullName: data.fullName,
-  //   gender: data.gender,
-  //   telephoneNumber: data.telephoneNumber,
-  //   nationality: data.nationality,
-  // }))
-
   const rowSelection = {
     selectedRowKeys,
     onChange: handleRowSelectChange,
